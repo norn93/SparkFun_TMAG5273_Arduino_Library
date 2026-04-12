@@ -396,7 +396,10 @@ int8_t TMAG5273::setOperatingMode(uint8_t opMode)
     if (rc != ksfTkErrOk)
         return -1;
 
-    return getError();
+    if (opMode != TMAG5273_SLEEP_MODE) { // if not sleeping, then get errors as usual ...
+        return getError();
+    }
+    return 0; // ...otherwise silently succeed
 }
 
 //------------------------------------------------------------------------------------------------
